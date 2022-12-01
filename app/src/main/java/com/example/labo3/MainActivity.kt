@@ -8,7 +8,7 @@ import android.view.MenuItem
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_tablet)
+        setContentView(R.layout.activity_main)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -18,8 +18,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
-            R.id.main_menu_action->{true}
-            R.id.main_menu_action2->{true}
+            R.id.sort_menu->{true}
+            R.id.menu_generate->{true}
+            R.id.menu_delete->{true}
             else->super.onOptionsItemSelected(item)
         }
     }
