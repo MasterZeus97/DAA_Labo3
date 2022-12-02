@@ -1,4 +1,4 @@
-package ch.heigvd.iict.and.labo4.models
+package com.example.labo3.models
 
 enum class State {
     IN_PROGRESS, DONE
