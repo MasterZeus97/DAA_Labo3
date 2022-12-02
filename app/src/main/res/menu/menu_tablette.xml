@@ -5,7 +5,7 @@
         android:id="@+id/sort_menu_tablette"
         android:icon="@drawable/sort"
         android:title="@string/trier"
-        app:showAsAction="ifRoom">
+        app:showAsAction="ifRoom|withText">
         <menu>
             <item
                 android:id="@+id/main_menu_action3"
