@@ -1,13 +1,24 @@
 package com.example.labo3
 
+import android.annotation.SuppressLint
+import android.content.res.Resources
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.recyclerview.widget.RecyclerView
 import ch.heigvd.iict.and.labo4.models.Note
+import ch.heigvd.iict.and.labo4.models.NoteAndSchedule
 import ch.heigvd.iict.and.labo4.models.Type
+import java.time.LocalDateTime
+import java.util.Calendar
+import java.util.Collections
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 class RecyclerViewAdapter(_items : List<Note> = listOf()) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
@@ -21,20 +32,35 @@ class RecyclerViewAdapter(_items : List<Note> = listOf()) : RecyclerView.Adapter
         items = _items
     }
 
+    private fun creationSort():Boolean{
+        items.sortedByDescending {
+            it.creationDate
+        }
+        return true
+    }
+
+
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int): Int {
-        if(true) return NOTE
-        else return ERROR
+        if(items[position] is Note) return NOTE
+        else return NOTE_SCHEDULE
     }
 
     companion object{
-        private val ERROR = -1
+
+
         private val NOTE = 1
+        private val NOTE_SCHEDULE = 2
+        val SORT_CREATION = 3
+        val SORT_SCHEDULE = 4
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.note_layout, parent, false))
+        return when(viewType){
+            NOTE -> ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.note_layout, parent, false))
+            else -> ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.schedule_note_layout, parent, false))
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -54,10 +80,45 @@ class RecyclerViewAdapter(_items : List<Note> = listOf()) : RecyclerView.Adapter
                 Type.TODO -> noteIcon.setImageResource(R.drawable.todo)
                 Type.SHOPPING -> noteIcon.setImageResource(R.drawable.shopping)
                 Type.WORK ->noteIcon.setImageResource(R.drawable.work)
-                Type.NONE -> {}
+                Type.NONE -> noteIcon.setImageResource(R.drawable.note)
             }
             noteTitle.text = note.title
             noteDesc.text = note.text
+        }
+
+        fun bind(note : NoteAndSchedule){
+            bind(note.note)
+
+            if(note.schedule != null) {
+
+                noteClock.visibility = View.VISIBLE
+
+                val tmp = note.schedule.date.time.time
+                val tmp2 = Calendar.getInstance().time.time
+
+                val tmp3 = tmp - tmp2
+
+                val diffInDay = TimeUnit.MILLISECONDS.toDays(tmp3)
+                val diffInYear = diffInDay / 365
+                val diffInMonth = diffInDay / 30
+                val diffInWeek = diffInDay / 7
+                val diffInHours = TimeUnit.MILLISECONDS.toHours(tmp3)
+
+                if(diffInYear > 0){
+                    noteTimeLeft.text = Resources.getSystem().getString(R.string.years_left, diffInYear)
+                }else if(diffInMonth > 0){
+                    noteTimeLeft.text = Resources.getSystem().getString(R.string.months_left, diffInMonth)
+                }else if(diffInWeek > 0){
+                    noteTimeLeft.text = Resources.getSystem().getString(R.string.weeks_left, diffInWeek)
+                }else if(diffInDay > 0){
+                    noteTimeLeft.text = Resources.getSystem().getString(R.string.days_left, diffInDay)
+                }else{
+                    noteTimeLeft.text = Resources.getSystem().getString(R.string.hours_left, diffInHours)
+                }
+            }else{
+                noteClock.visibility = View.INVISIBLE
+                noteTimeLeft.text = ""
+            }
         }
     }
 }

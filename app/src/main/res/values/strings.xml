@@ -7,4 +7,11 @@
     <string name="delete_all">Delete all</string>
     <string name="delete_capital">DELETE</string>
     <string name="trier">trier</string>
+
+    <string name="years_left">%d years</string>
+    <string name="months_left">%d months</string>
+    <string name="weeks_left">%d weeks</string>
+    <string name="days_left">%d days</string>
+    <string name="hours_left">%d hours</string>
+
 </resources>

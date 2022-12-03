@@ -10,15 +10,17 @@
         android:id="@+id/note_icon"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
+        android:src="@drawable/shopping"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/note_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="blou"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/note_resume"
         app:layout_constraintStart_toEndOf="@id/note_icon" />
@@ -32,5 +34,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/note_title"
         />
+
+    <ImageView
+        android:id="@+id/note_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/clock"
+        app:layout_constraintTop_toTopOf="@id/note_icon"
+        app:layout_constraintEnd_toEndOf="@id/note_time_left"
+        app:layout_constraintStart_toStartOf="@id/note_time_left" />
+
+    <TextView
+        android:id="@+id/note_time_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="blabla"
+        app:layout_constraintBottom_toBottomOf="@id/note_icon"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

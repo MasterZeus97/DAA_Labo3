@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.heigvd.iict.and.labo4.models.Note
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -20,6 +18,10 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FragmentNotes : Fragment() {
+
+    lateinit var adapter: RecyclerViewAdapter
+
+    //private myView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +37,11 @@ class FragmentNotes : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //val recycler = view.findViewById<RecyclerView>(R.id.recycler_view_notes)
-        //val adapter = RecyclerViewAdapter()
-        //recycler.adapter = adapter
-        //recycler.layoutManager = LinearLayoutManager(activity)
-/*
+        val recycler = view.findViewById<RecyclerView>(R.id.recycler_view_notes)
+        adapter = RecyclerViewAdapter()
+        recycler.adapter = adapter
+        recycler.layoutManager = LinearLayoutManager(activity)
+
         adapter.items = listOf( Note.generateRandomNote(),
                                 Note.generateRandomNote(),
                                 Note.generateRandomNote(),
@@ -54,8 +56,10 @@ class FragmentNotes : Fragment() {
                                 Note.generateRandomNote(),
                                 Note.generateRandomNote(),
                                 Note.generateRandomNote(),
-                                Note.generateRandomNote())*/
+                                Note.generateRandomNote())
     }
+
+
 
     companion object {
         /**
