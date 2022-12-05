@@ -1,13 +1,13 @@
 package com.example.labo3
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ch.heigvd.iict.and.labo4.models.Note
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -21,7 +21,7 @@ class FragmentNotes : Fragment() {
 
     lateinit var adapter: RecyclerViewAdapter
 
-    //private myView
+    private val myViewModel: ViewModelTMP by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,46 +38,36 @@ class FragmentNotes : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recycler = view.findViewById<RecyclerView>(R.id.recycler_view_notes)
+
         adapter = RecyclerViewAdapter()
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(activity)
 
-        adapter.items = listOf( Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote(),
-                                Note.generateRandomNote())
-    }
+        myViewModel.allNotes.observe(viewLifecycleOwner){
+            adapter.items = myViewModel.allNotes.value!!
 
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentNotes.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentNotes().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+            when(myViewModel.sortEnum.value){
+                ViewModelTMP.EnumTest.BLO->{
+                    adapter.creationSort()
                 }
+                ViewModelTMP.EnumTest.BLA->{
+                    adapter.scheduleSort()
+                }
+                else -> {}
             }
+
+        }
+
+        myViewModel.sortEnum.observe(viewLifecycleOwner){
+            when(myViewModel.sortEnum.value){
+                ViewModelTMP.EnumTest.BLO->{
+                    adapter.creationSort()
+                }
+                ViewModelTMP.EnumTest.BLA->{
+                    adapter.scheduleSort()
+                }
+                else -> {}
+            }
+        }
     }
 }

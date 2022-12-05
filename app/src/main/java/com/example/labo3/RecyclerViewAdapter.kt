@@ -13,6 +13,7 @@ import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.recyclerview.widget.RecyclerView
 import ch.heigvd.iict.and.labo4.models.Note
 import ch.heigvd.iict.and.labo4.models.NoteAndSchedule
+import ch.heigvd.iict.and.labo4.models.Schedule
 import ch.heigvd.iict.and.labo4.models.Type
 import java.time.LocalDateTime
 import java.util.Calendar
@@ -20,9 +21,9 @@ import java.util.Collections
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-class RecyclerViewAdapter(_items : List<Note> = listOf()) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(_items : List<NoteAndSchedule> = listOf()) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
-    var items = listOf<Note>()
+    var items = listOf<NoteAndSchedule>()
         set(value){
             field = value
             notifyDataSetChanged()
@@ -32,35 +33,33 @@ class RecyclerViewAdapter(_items : List<Note> = listOf()) : RecyclerView.Adapter
         items = _items
     }
 
-    private fun creationSort():Boolean{
-        items.sortedByDescending {
-            it.creationDate
+    fun creationSort():Boolean{
+        items = items.sortedByDescending {
+            it.note.creationDate
         }
         return true
     }
 
+    fun scheduleSort():Boolean{
+        items.sortedByDescending {
+            it.schedule?.date
+        }
+        return true
+    }
 
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int): Int {
-        if(items[position] is Note) return NOTE
-        else return NOTE_SCHEDULE
+        if(items[position] is NoteAndSchedule) return NOTE_SCHEDULE
+        else return ERROR
     }
 
     companion object{
-
-
-        private val NOTE = 1
-        private val NOTE_SCHEDULE = 2
-        val SORT_CREATION = 3
-        val SORT_SCHEDULE = 4
+        private val ERROR = -1
+        private val NOTE_SCHEDULE = 1
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return when(viewType){
-            NOTE -> ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.note_layout, parent, false))
-            else -> ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.schedule_note_layout, parent, false))
-        }
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.schedule_note_layout, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
