@@ -24,7 +24,7 @@ class FragmentControles : Fragment() {
     lateinit var btnGenerate: Button
     lateinit var btnDelete: Button
     lateinit var counter: TextView
-    private val myViewModel: ViewModelTMP by viewModels()
+    private val myViewModel: MyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +51,12 @@ class FragmentControles : Fragment() {
 
         btnDelete.setOnClickListener{
             myViewModel.deleteAllNote()
+        }
+
+        counter.text = myViewModel.countNotes.value.toString()
+
+        myViewModel.countNotes.observe(viewLifecycleOwner){
+            counter.text = myViewModel.countNotes.value.toString()
         }
     }
 

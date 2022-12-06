@@ -21,7 +21,7 @@ class FragmentNotes : Fragment() {
 
     lateinit var adapter: RecyclerViewAdapter
 
-    private val myViewModel: ViewModelTMP by activityViewModels()
+    private val myViewModel: MyViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +47,10 @@ class FragmentNotes : Fragment() {
             adapter.items = myViewModel.allNotes.value!!
 
             when(myViewModel.sortEnum.value){
-                ViewModelTMP.EnumTest.BLO->{
+                MyViewModel.EnumSort.CREATION_SORT->{
                     adapter.creationSort()
                 }
-                ViewModelTMP.EnumTest.BLA->{
+                MyViewModel.EnumSort.SCHEDULE_SORT->{
                     adapter.scheduleSort()
                 }
                 else -> {}
@@ -60,10 +60,10 @@ class FragmentNotes : Fragment() {
 
         myViewModel.sortEnum.observe(viewLifecycleOwner){
             when(myViewModel.sortEnum.value){
-                ViewModelTMP.EnumTest.BLO->{
+                MyViewModel.EnumSort.CREATION_SORT->{
                     adapter.creationSort()
                 }
-                ViewModelTMP.EnumTest.BLA->{
+                MyViewModel.EnumSort.SCHEDULE_SORT->{
                     adapter.scheduleSort()
                 }
                 else -> {}

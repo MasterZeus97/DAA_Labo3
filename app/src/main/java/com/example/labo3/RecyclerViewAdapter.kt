@@ -11,10 +11,9 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.recyclerview.widget.RecyclerView
-import ch.heigvd.iict.and.labo4.models.Note
-import ch.heigvd.iict.and.labo4.models.NoteAndSchedule
-import ch.heigvd.iict.and.labo4.models.Schedule
-import ch.heigvd.iict.and.labo4.models.Type
+import com.example.labo3.models.Note
+import com.example.labo3.models.NoteAndSchedule
+import com.example.labo3.models.Type
 import java.time.LocalDateTime
 import java.util.Calendar
 import java.util.Collections
