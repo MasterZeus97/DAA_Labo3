@@ -16,6 +16,8 @@ class MyViewModel(private val repository: Repository) : ViewModel() {
         DEFAULT
     }
 
+    val sortEnum = MutableLiveData<MyViewModel.EnumSort>(EnumSort.DEFAULT)
+
     val allNotes = repository.allNotes
     val countNotes = repository.countNotes
 
@@ -45,7 +47,7 @@ class MyViewModel(private val repository: Repository) : ViewModel() {
         repository.deleteAll()
     }
 
-    val sortEnum = MutableLiveData<MyViewModel.EnumSort>(EnumSort.DEFAULT)
+
 }
 
 class MyViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
