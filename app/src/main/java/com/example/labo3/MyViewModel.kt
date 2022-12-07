@@ -2,22 +2,36 @@ package com.example.labo3
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.labo3.models.Note
 import java.util.*
+import kotlin.concurrent.thread
 
 class MyViewModel(private val repository: Repository) : ViewModel() {
+    enum class EnumSort{
+        SCHEDULE_SORT,
+        CREATION_SORT,
+        DEFAULT
+    }
+
+    val sortEnum = MutableLiveData<MyViewModel.EnumSort>(EnumSort.DEFAULT)
+
     val allNotes = repository.allNotes
     val countNotes = repository.countNotes
 
     fun generateANote() {
-        val rand = Random()
-        val noteId = repository.addNote(Note.generateRandomNote())
-        if (rand.nextBoolean()) {
-            val schedule = Note.generateRandomSchedule()
-            schedule.ownerId = noteId
-            repository.addSchedule(schedule)
+        thread {
+            val rand = Random()
+            val noteId = repository.addNote(Note.generateRandomNote())
+            if (rand.nextBoolean()) {
+                val schedule = Note.generateRandomSchedule()
+                if (schedule != null) {
+                    schedule.ownerId = noteId.take()
+                    repository.addSchedule(schedule)
+                }
+            }
         }
     }
 
@@ -32,6 +46,8 @@ class MyViewModel(private val repository: Repository) : ViewModel() {
     fun deleteAllNote() {
         repository.deleteAll()
     }
+
+
 }
 
 class MyViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {

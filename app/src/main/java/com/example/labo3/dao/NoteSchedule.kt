@@ -1,9 +1,11 @@
 package com.example.labo3.dao
 
 import androidx.lifecycle.LiveData
+import androidx.room.Dao
 import androidx.room.Query
 import com.example.labo3.models.NoteAndSchedule
 
+@Dao
 interface NoteSchedule {
     fun deleteAll() {
         deleteAllNotes()

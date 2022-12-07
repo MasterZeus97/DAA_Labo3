@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context=".views.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/note_frag"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:name="com.example.labo3.FragmentNotes"
+        android:name="com.example.labo3.views.FragmentNotes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

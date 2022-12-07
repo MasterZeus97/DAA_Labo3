@@ -1,10 +1,17 @@
-package com.example.labo3
+package com.example.labo3.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
+import com.example.labo3.MyApp
+import com.example.labo3.MyViewModel
+import com.example.labo3.MyViewModelFactory
+import com.example.labo3.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,16 +24,16 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FragmentControles : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    lateinit var btnGenerate: Button
+    lateinit var btnDelete: Button
+    lateinit var counter: TextView
+    private val myViewModel: MyViewModel by activityViewModels{
+        MyViewModelFactory((requireActivity().application as MyApp).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -35,6 +42,28 @@ class FragmentControles : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_controles, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btnGenerate = view.findViewById<Button>(R.id.btn_generate)
+        btnDelete = view.findViewById<Button>(R.id.btn_delete)
+        counter = view.findViewById<TextView>(R.id.notes_count)
+
+        btnGenerate.setOnClickListener{
+            myViewModel.generateANote()
+        }
+
+        btnDelete.setOnClickListener{
+            myViewModel.deleteAllNote()
+        }
+
+        counter.text = myViewModel.countNotes.value.toString()
+
+        myViewModel.countNotes.observe(viewLifecycleOwner){
+            counter.text = myViewModel.countNotes.value.toString()
+        }
     }
 
     companion object {
