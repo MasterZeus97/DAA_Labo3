@@ -3,6 +3,7 @@ package com.example.labo3
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.recyclerview.widget.RecyclerView
 import com.example.labo3.models.Note
 import com.example.labo3.models.NoteAndSchedule
+import com.example.labo3.models.State
 import com.example.labo3.models.Type
 import java.time.LocalDateTime
 import java.util.Calendar
@@ -33,18 +35,16 @@ class RecyclerViewAdapter(_items : List<NoteAndSchedule> = listOf()) : RecyclerV
         items = _items
     }
 
-    fun creationSort():Boolean{
+    fun creationSort(){
         items = items.sortedByDescending {
             it.note.creationDate
         }
-        return true
     }
 
-    fun scheduleSort():Boolean{
-        items.sortedByDescending {
+    fun scheduleSort(){
+        items = items.sortedByDescending {
             it.schedule?.date
         }
-        return true
     }
 
     override fun getItemCount() = items.size
@@ -81,6 +81,11 @@ class RecyclerViewAdapter(_items : List<NoteAndSchedule> = listOf()) : RecyclerV
                 Type.WORK ->noteIcon.setImageResource(R.drawable.work)
                 Type.NONE -> noteIcon.setImageResource(R.drawable.note)
             }
+
+            if(note.state == State.DONE)
+                noteIcon.setColorFilter(Color.GREEN)
+
+
             noteTitle.text = note.title
             noteDesc.text = note.text
         }
@@ -92,16 +97,16 @@ class RecyclerViewAdapter(_items : List<NoteAndSchedule> = listOf()) : RecyclerV
 
                 noteClock.visibility = View.VISIBLE
 
-                val tmp = note.schedule.date.time.time
-                val tmp2 = Calendar.getInstance().time.time
+                val timeScheduled = note.schedule.date.time.time
+                val timeNow = Calendar.getInstance().time.time
 
-                val tmp3 = tmp - tmp2
+                val timeLeft = timeScheduled - timeNow
 
-                val diffInDay = TimeUnit.MILLISECONDS.toDays(tmp3)
+                val diffInDay = TimeUnit.MILLISECONDS.toDays(timeLeft)
                 val diffInYear = diffInDay / 365
                 val diffInMonth = diffInDay / 30
                 val diffInWeek = diffInDay / 7
-                val diffInHours = TimeUnit.MILLISECONDS.toHours(tmp3)
+                val diffInHours = TimeUnit.MILLISECONDS.toHours(timeLeft)
 
                 if(diffInYear > 0){
                     noteTimeLeft.text = "$diffInYear years"
@@ -111,8 +116,13 @@ class RecyclerViewAdapter(_items : List<NoteAndSchedule> = listOf()) : RecyclerV
                     noteTimeLeft.text = "$diffInWeek weeks"
                 }else if(diffInDay > 0){
                     noteTimeLeft.text = "$diffInDay days"
-                }else{
+                }else if(diffInHours > 0){
                     noteTimeLeft.text = "$diffInHours hours"
+                }else if(timeLeft > 0){
+                    noteTimeLeft.text = "Soon"
+                }else{
+                    noteTimeLeft.text = "Late"
+                    noteClock.setColorFilter(Color.RED)
                 }
             }else{
                 noteClock.visibility = View.INVISIBLE

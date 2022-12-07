@@ -1,4 +1,4 @@
-package com.example.labo3
+package com.example.labo3.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import com.example.labo3.MyApp
+import com.example.labo3.MyViewModel
+import com.example.labo3.MyViewModelFactory
+import com.example.labo3.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

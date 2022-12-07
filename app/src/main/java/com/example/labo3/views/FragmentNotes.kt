@@ -1,4 +1,4 @@
-package com.example.labo3
+package com.example.labo3.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.labo3.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -50,10 +51,10 @@ class FragmentNotes : Fragment() {
             adapter.items = myViewModel.allNotes.value!!
 
             when(myViewModel.sortEnum.value){
-                MyViewModel.EnumSort.CREATION_SORT->{
+                MyViewModel.EnumSort.CREATION_SORT ->{
                     adapter.creationSort()
                 }
-                MyViewModel.EnumSort.SCHEDULE_SORT->{
+                MyViewModel.EnumSort.SCHEDULE_SORT ->{
                     adapter.scheduleSort()
                 }
                 else -> {}
@@ -63,10 +64,10 @@ class FragmentNotes : Fragment() {
 
         myViewModel.sortEnum.observe(viewLifecycleOwner){
             when(myViewModel.sortEnum.value){
-                MyViewModel.EnumSort.CREATION_SORT->{
+                MyViewModel.EnumSort.CREATION_SORT ->{
                     adapter.creationSort()
                 }
-                MyViewModel.EnumSort.SCHEDULE_SORT->{
+                MyViewModel.EnumSort.SCHEDULE_SORT ->{
                     adapter.scheduleSort()
                 }
                 else -> {}
