@@ -8,7 +8,7 @@ import com.example.labo3.models.Schedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.concurrent.thread
+import java.util.concurrent.LinkedBlockingQueue
 
 class Repository(
     private val note: com.example.labo3.dao.Note,
@@ -23,14 +23,18 @@ class Repository(
         }
     }
 
-    fun addNote(n: Note): Long {
-        // TODO : Should be done in the scope ?
-        return note.insert(n)
+    fun addNote(n: Note): LinkedBlockingQueue<Long> {
+        val queue = LinkedBlockingQueue<Long>()
+        scope.launch(Dispatchers.IO) {
+            queue.put(note.insert(n))
+        }
+        return queue
     }
 
-    fun addSchedule(s: Schedule) : Long {
-        // TODO : Should be done in the scope ?
-        return schedule.insert(s)
+    fun addSchedule(s: Schedule) {
+        scope.launch(Dispatchers.IO) {
+            schedule.insert(s)
+        }
     }
 
     val countNotes: LiveData<Int>

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.labo3.models.Note
 import java.util.*
+import kotlin.concurrent.thread
 
 class MyViewModel(private val repository: Repository) : ViewModel() {
     enum class EnumSort{
@@ -19,15 +20,16 @@ class MyViewModel(private val repository: Repository) : ViewModel() {
     val countNotes = repository.countNotes
 
     fun generateANote() {
-        val rand = Random()
-        val noteId = repository.addNote(Note.generateRandomNote())
-        if (rand.nextBoolean()) {
-            val schedule = Note.generateRandomSchedule()
-            if (schedule != null) {
-                schedule.ownerId = noteId
-                repository.addSchedule(schedule)
+        thread {
+            val rand = Random()
+            val noteId = repository.addNote(Note.generateRandomNote())
+            if (rand.nextBoolean()) {
+                val schedule = Note.generateRandomSchedule()
+                if (schedule != null) {
+                    schedule.ownerId = noteId.take()
+                    repository.addSchedule(schedule)
+                }
             }
-
         }
     }
 
