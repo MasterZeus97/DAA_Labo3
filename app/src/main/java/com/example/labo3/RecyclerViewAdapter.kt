@@ -1,6 +1,7 @@
 package com.example.labo3
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.res.Resources
 import android.os.Build
 import android.view.LayoutInflater
@@ -103,15 +104,15 @@ class RecyclerViewAdapter(_items : List<NoteAndSchedule> = listOf()) : RecyclerV
                 val diffInHours = TimeUnit.MILLISECONDS.toHours(tmp3)
 
                 if(diffInYear > 0){
-                    noteTimeLeft.text = Resources.getSystem().getString(R.string.years_left, diffInYear)
+                    noteTimeLeft.text = "$diffInYear years"
                 }else if(diffInMonth > 0){
-                    noteTimeLeft.text = Resources.getSystem().getString(R.string.months_left, diffInMonth)
+                    noteTimeLeft.text = "$diffInMonth months"
                 }else if(diffInWeek > 0){
-                    noteTimeLeft.text = Resources.getSystem().getString(R.string.weeks_left, diffInWeek)
+                    noteTimeLeft.text = "$diffInWeek weeks"
                 }else if(diffInDay > 0){
-                    noteTimeLeft.text = Resources.getSystem().getString(R.string.days_left, diffInDay)
+                    noteTimeLeft.text = "$diffInDay days"
                 }else{
-                    noteTimeLeft.text = Resources.getSystem().getString(R.string.hours_left, diffInHours)
+                    noteTimeLeft.text = "$diffInHours hours"
                 }
             }else{
                 noteClock.visibility = View.INVISIBLE
