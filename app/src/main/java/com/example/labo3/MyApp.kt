@@ -5,6 +5,12 @@ import android.content.res.Configuration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
+/**
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description Permet d'utiliser le repository depuis les fragments et l'activité
+ */
+
 class MyApp : Application() {
     private val applicationScope = CoroutineScope(SupervisorJob())
 

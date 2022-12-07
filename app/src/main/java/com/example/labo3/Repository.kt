@@ -10,6 +10,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.LinkedBlockingQueue
 
+/**
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description Gère les interactions avec les DAO en les séparant du thread MAIN
+ */
+
 class Repository(
     private val note: com.example.labo3.dao.Note,
     private val schedule: com.example.labo3.dao.Schedule,
@@ -39,12 +45,10 @@ class Repository(
 
     val countNotes: LiveData<Int>
         get() {
-            // TODO : Should be done in the scope ?
             return note.count()
         }
     val allNotes: LiveData<List<NoteAndSchedule>>
         get() {
-            // TODO : Should be done in the scope ?
             return noteAndSchedule.get()
         }
 }

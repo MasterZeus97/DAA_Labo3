@@ -4,6 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import java.util.*
 
+/**
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description DAO pour les schedule
+ */
+
 @Dao
 interface Schedule {
     @Insert

@@ -10,6 +10,12 @@ import com.example.labo3.MyViewModel
 import com.example.labo3.MyViewModelFactory
 import com.example.labo3.R
 
+/**
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description MainActivity permet de gérer le menu et le layout principal
+ */
+
 class MainActivity : AppCompatActivity() {
     private val viewModel: MyViewModel by viewModels{
         MyViewModelFactory((application as MyApp).repository)

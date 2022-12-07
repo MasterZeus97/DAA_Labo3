@@ -9,6 +9,12 @@ import androidx.room.Update
 import com.example.labo3.models.Note
 import com.example.labo3.models.State
 
+/**
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description DAO pour l'objet Note
+ */
+
 @Dao
 interface Note {
     @Insert

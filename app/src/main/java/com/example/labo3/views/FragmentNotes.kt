@@ -10,14 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.labo3.*
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
- * A simple [Fragment] subclass.
- * Use the [FragmentNotes.newInstance] factory method to
- * create an instance of this fragment.
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description Fragment pour afficher et gérer la RecyclerView
  */
+
 class FragmentNotes : Fragment() {
 
     lateinit var adapter: RecyclerViewAdapter
