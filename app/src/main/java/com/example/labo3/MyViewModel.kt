@@ -9,6 +9,12 @@ import com.example.labo3.models.Note
 import java.util.*
 import kotlin.concurrent.thread
 
+/**
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description ViewModel permettant la communication entre la BD, l'activité et les fragments
+ */
+
 class MyViewModel(private val repository: Repository) : ViewModel() {
     enum class EnumSort{
         SCHEDULE_SORT,

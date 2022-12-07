@@ -1,27 +1,25 @@
 package com.example.labo3
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.res.Resources
 import android.graphics.Color
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
-import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.recyclerview.widget.RecyclerView
 import com.example.labo3.models.Note
 import com.example.labo3.models.NoteAndSchedule
 import com.example.labo3.models.State
 import com.example.labo3.models.Type
-import java.time.LocalDateTime
 import java.util.Calendar
-import java.util.Collections
-import java.util.Locale
 import java.util.concurrent.TimeUnit
+
+/**
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description Adapter pour le recyclerview affichant les Notes. Permet de trier la liste de notes
+ * affichages.
+ */
 
 class RecyclerViewAdapter(_items : List<NoteAndSchedule> = listOf()) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 

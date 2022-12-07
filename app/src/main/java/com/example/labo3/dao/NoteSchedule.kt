@@ -5,6 +5,12 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.example.labo3.models.NoteAndSchedule
 
+/**
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description DAO pour les Note et les Schedule combinés
+ */
+
 @Dao
 interface NoteSchedule {
     fun deleteAll() {

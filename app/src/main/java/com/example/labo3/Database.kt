@@ -11,6 +11,13 @@ import com.example.labo3.models.Note
 import com.example.labo3.models.Schedule
 import kotlin.concurrent.thread
 
+/**
+ * @author Perrenoud Pascal
+ * @author Seem Thibault
+ * @description Initialisation et gestion de la database pour assurer la persistance des données
+ * et la cohérence du schéma de la DB
+ */
+
 @Database(entities = [Note::class, Schedule::class],
     version = 1,
     exportSchema = true)
@@ -41,7 +48,6 @@ abstract class MyDatabase : RoomDatabase() {
             INSTANCE?.let {database ->
                 if (database.noteDao().count().value == 0) {
                     thread {
-                        // TODO : Populate la DB
                     }
                 }
             }
