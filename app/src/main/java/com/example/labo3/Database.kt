@@ -18,6 +18,8 @@ import kotlin.concurrent.thread
 abstract class MyDatabase : RoomDatabase() {
     abstract fun noteDao() : com.example.labo3.dao.Note
     abstract fun scheduleDao() : com.example.labo3.dao.Schedule
+    abstract fun noteAndScheduleDao(): com.example.labo3.dao.NoteSchedule
+
     companion object {
         private var INSTANCE : MyDatabase? = null
         fun getDatabase(context: Context) : MyDatabase {
