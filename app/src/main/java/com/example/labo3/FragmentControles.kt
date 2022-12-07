@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,7 +25,9 @@ class FragmentControles : Fragment() {
     lateinit var btnGenerate: Button
     lateinit var btnDelete: Button
     lateinit var counter: TextView
-    private val myViewModel: MyViewModel by viewModels()
+    private val myViewModel: MyViewModel by activityViewModels{
+        MyViewModelFactory((requireActivity().application as MyApp).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

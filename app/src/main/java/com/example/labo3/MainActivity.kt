@@ -1,13 +1,18 @@
 package com.example.labo3
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MyViewModel by viewModels()
+    private val viewModel: MyViewModel by viewModels{
+        MyViewModelFactory((application as MyApp).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -21,7 +21,9 @@ class FragmentNotes : Fragment() {
 
     lateinit var adapter: RecyclerViewAdapter
 
-    private val myViewModel: MyViewModel by activityViewModels()
+    private val myViewModel: MyViewModel by activityViewModels{
+        MyViewModelFactory((requireActivity().application as MyApp).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,7 @@ class FragmentNotes : Fragment() {
         adapter = RecyclerViewAdapter()
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(activity)
+
 
         myViewModel.allNotes.observe(viewLifecycleOwner){
             adapter.items = myViewModel.allNotes.value!!
